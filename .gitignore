@@ -1,5 +1,7 @@
 # JetBrains PyCharm IDE
 .idea/
+.github/
+.circleci/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

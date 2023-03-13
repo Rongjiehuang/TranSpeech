@@ -1,237 +1,238 @@
-<p align="center">
-  <img src="docs/fairseq_logo.png" width="150">
-  <br />
-  <br />
-  <a href="https://github.com/pytorch/fairseq/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
-  <a href="https://github.com/pytorch/fairseq/releases"><img alt="Latest Release" src="https://img.shields.io/github/release/pytorch/fairseq.svg" /></a>
-  <a href="https://github.com/pytorch/fairseq/actions?query=workflow:build"><img alt="Build Status" src="https://github.com/pytorch/fairseq/workflows/build/badge.svg" /></a>
-  <a href="https://fairseq.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/fairseq/badge/?version=latest" /></a>
-</p>
+# TranSpeech: Speech-to-Speech Translation With Bilateral Perturbation
+#### Rongjie Huang*, Jinglin Liu*, Huadai Liu*, Yi Ren, Lichao Zhang, Jinzheng He, Zhou Zhao | Zhejiang University, ByteDance
 
---------------------------------------------------------------------------------
 
-Fairseq(-py) is a sequence modeling toolkit that allows researchers and
-developers to train custom models for translation, summarization, language
-modeling and other text generation tasks.
+PyTorch Implementation of [TranSpeech (ICLR'23)](https://arxiv.org/abs/2205.12523): a speech-to-speech translation model towards high-accuracy and non-autoregressive translation.
 
-We provide reference implementations of various sequence modeling papers:
+[![arXiv](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/abs/2205.12523)
+[![GitHub Stars](https://img.shields.io/github/stars/Rongjiehuang/TranSpeech?style=social)](https://github.com/Rongjiehuang/TranSpeech)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=Rongjiehuang/TranSpeech)
 
-<details><summary>List of implemented papers</summary><p>
+We provide our implementation and pretrained models in this repository.
 
-* **Convolutional Neural Networks (CNN)**
-  + [Language Modeling with Gated Convolutional Networks (Dauphin et al., 2017)](examples/language_model/conv_lm/README.md)
-  + [Convolutional Sequence to Sequence Learning (Gehring et al., 2017)](examples/conv_seq2seq/README.md)
-  + [Classical Structured Prediction Losses for Sequence to Sequence Learning (Edunov et al., 2018)](https://github.com/pytorch/fairseq/tree/classic_seqlevel)
-  + [Hierarchical Neural Story Generation (Fan et al., 2018)](examples/stories/README.md)
-  + [wav2vec: Unsupervised Pre-training for Speech Recognition (Schneider et al., 2019)](examples/wav2vec/README.md)
-* **LightConv and DynamicConv models**
-  + [Pay Less Attention with Lightweight and Dynamic Convolutions (Wu et al., 2019)](examples/pay_less_attention_paper/README.md)
-* **Long Short-Term Memory (LSTM) networks**
-  + Effective Approaches to Attention-based Neural Machine Translation (Luong et al., 2015)
-* **Transformer (self-attention) networks**
-  + Attention Is All You Need (Vaswani et al., 2017)
-  + [Scaling Neural Machine Translation (Ott et al., 2018)](examples/scaling_nmt/README.md)
-  + [Understanding Back-Translation at Scale (Edunov et al., 2018)](examples/backtranslation/README.md)
-  + [Adaptive Input Representations for Neural Language Modeling (Baevski and Auli, 2018)](examples/language_model/README.adaptive_inputs.md)
-  + [Lexically constrained decoding with dynamic beam allocation (Post & Vilar, 2018)](examples/constrained_decoding/README.md)
-  + [Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context (Dai et al., 2019)](examples/truncated_bptt/README.md)
-  + [Adaptive Attention Span in Transformers (Sukhbaatar et al., 2019)](examples/adaptive_span/README.md)
-  + [Mixture Models for Diverse Machine Translation: Tricks of the Trade (Shen et al., 2019)](examples/translation_moe/README.md)
-  + [RoBERTa: A Robustly Optimized BERT Pretraining Approach (Liu et al., 2019)](examples/roberta/README.md)
-  + [Facebook FAIR's WMT19 News Translation Task Submission (Ng et al., 2019)](examples/wmt19/README.md)
-  + [Jointly Learning to Align and Translate with Transformer Models (Garg et al., 2019)](examples/joint_alignment_translation/README.md )
-  + [Multilingual Denoising Pre-training for Neural Machine Translation (Liu et at., 2020)](examples/mbart/README.md)
-  + [Neural Machine Translation with Byte-Level Subwords (Wang et al., 2020)](examples/byte_level_bpe/README.md)
-  + [Unsupervised Quality Estimation for Neural Machine Translation (Fomicheva et al., 2020)](examples/unsupervised_quality_estimation/README.md)
-  + [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations (Baevski et al., 2020)](examples/wav2vec/README.md)
-  + [Generating Medical Reports from Patient-Doctor Conversations Using Sequence-to-Sequence Models (Enarvi et al., 2020)](examples/pointer_generator/README.md)
-  + [Linformer: Self-Attention with Linear Complexity (Wang et al., 2020)](examples/linformer/README.md)
-  + [Cross-lingual Retrieval for Iterative Self-Supervised Training (Tran et al., 2020)](examples/criss/README.md)
-  + [Deep Transformers with Latent Depth (Li et al., 2020)](examples/latent_depth/README.md)
-  + [Unsupervised Cross-lingual Representation Learning for Speech Recognition (Conneau et al., 2020)](https://arxiv.org/abs/2006.13979)
-  + [Self-training and Pre-training are Complementary for Speech Recognition (Xu et al., 2020)](https://arxiv.org/abs/2010.11430)
-  + [Robust wav2vec 2.0: Analyzing Domain Shift in Self-Supervised Pre-Training (Hsu, et al., 2021)](https://arxiv.org/abs/2104.01027)
-  + [Unsupervised Speech Recognition (Baevski, et al., 2021)](https://arxiv.org/abs/2105.11084)
-  + [Simple and Effective Zero-shot Cross-lingual Phoneme Recognition (Xu et al., 2021)](https://arxiv.org/abs/2109.11680)
-  + [VideoCLIP: Contrastive Pre-training for Zero-shot Video-Text Understanding (Xu et. al., 2021)](https://arxiv.org/pdf/2109.14084.pdf)
-  + [VLM: Task-agnostic Video-Language Model Pre-training for Video Understanding (Xu et. al., 2021)](https://aclanthology.org/2021.findings-acl.370.pdf)
-  + [NormFormer: Improved Transformer Pretraining with Extra Normalization (Shleifer et. al, 2021)](examples/normformer/README.md)
-* **Non-autoregressive Transformers**
-  + Non-Autoregressive Neural Machine Translation (Gu et al., 2017)
-  + Deterministic Non-Autoregressive Neural Sequence Modeling by Iterative Refinement (Lee et al. 2018)
-  + Insertion Transformer: Flexible Sequence Generation via Insertion Operations (Stern et al. 2019)
-  + Mask-Predict: Parallel Decoding of Conditional Masked Language Models (Ghazvininejad et al., 2019)
-  + [Levenshtein Transformer (Gu et al., 2019)](examples/nonautoregressive_translation/README.md)
-* **Finetuning**
-  + [Better Fine-Tuning by Reducing Representational Collapse (Aghajanyan et al. 2020)](examples/rxf/README.md)
+Visit our [demo page](https://transpeech.github.io/) for audio samples.
 
-</p></details>
+## News
+#### TranSpeech is one of our continuous efforts to reduce communication barrier.
+- July, 2022: **[TranSpeech](https://arxiv.org/abs/2205.07211)** released at Arxiv.
+- March, 2023: **[TranSpeech](https://arxiv.org/abs/2205.07211) (ICLR 2023)** released at Github.
+- March, 2023: Audio-Visual Speech-To-Text Translation **[MixSpeech](https://arxiv.org/abs/2303.05309)** and [dataset]() released at Arxiv and Github.
 
-### What's New:
-* December 2021 [Released Direct speech-to-speech translation code](examples/speech_to_speech/README.md)
-* October 2021 [Released VideoCLIP and VLM models](examples/MMPT/README.md)
-* October 2021 [Released multilingual finetuned XLSR-53 model](examples/wav2vec/README.md)
-* September 2021 [`master` branch renamed to `main`](https://github.com/github/renaming).
-* July 2021 [Released DrNMT code](examples/discriminative_reranking_nmt/README.md)
-* July 2021 [Released Robust wav2vec 2.0 model](examples/wav2vec/README.md)
-* June 2021 [Released XLMR-XL and XLMR-XXL models](examples/xlmr/README.md)
-* May 2021 [Released Unsupervised Speech Recognition code](examples/wav2vec/unsupervised/README.md)
-* March 2021 [Added full parameter and optimizer state sharding + CPU offloading](examples/fully_sharded_data_parallel/README.md)
-* February 2021 [Added LASER training code](examples/laser/README.md)
-* December 2020: [Added Adaptive Attention Span code](examples/adaptive_span/README.md)
-* December 2020: [GottBERT model and code released](examples/gottbert/README.md)
-* November 2020: Adopted the [Hydra](https://github.com/facebookresearch/hydra) configuration framework
-  * [see documentation explaining how to use it for new and existing projects](docs/hydra_integration.md)
-* November 2020: [fairseq 0.10.0 released](https://github.com/pytorch/fairseq/releases/tag/v0.10.0)
-* October 2020: [Added R3F/R4F (Better Fine-Tuning) code](examples/rxf/README.md)
-* October 2020: [Deep Transformer with Latent Depth code released](examples/latent_depth/README.md)
-* October 2020: [Added CRISS models and code](examples/criss/README.md)
+### Dependencies
 
-<details><summary>Previous updates</summary><p>
+- [Fairseq](https://github.com/facebookresearch/fairseq)
 
-* September 2020: [Added Linformer code](examples/linformer/README.md)
-* September 2020: [Added pointer-generator networks](examples/pointer_generator/README.md)
-* August 2020: [Added lexically constrained decoding](examples/constrained_decoding/README.md)
-* August 2020: [wav2vec2 models and code released](examples/wav2vec/README.md)
-* July 2020: [Unsupervised Quality Estimation code released](examples/unsupervised_quality_estimation/README.md)
-* May 2020: [Follow fairseq on Twitter](https://twitter.com/fairseq)
-* April 2020: [Monotonic Multihead Attention code released](examples/simultaneous_translation/README.md)
-* April 2020: [Quant-Noise code released](examples/quant_noise/README.md)
-* April 2020: [Initial model parallel support and 11B parameters unidirectional LM released](examples/megatron_11b/README.md)
-* March 2020: [Byte-level BPE code released](examples/byte_level_bpe/README.md)
-* February 2020: [mBART model and code released](examples/mbart/README.md)
-* February 2020: [Added tutorial for back-translation](https://github.com/pytorch/fairseq/tree/main/examples/backtranslation#training-your-own-model-wmt18-english-german)
-* December 2019: [fairseq 0.9.0 released](https://github.com/pytorch/fairseq/releases/tag/v0.9.0)
-* November 2019: [VizSeq released (a visual analysis toolkit for evaluating fairseq models)](https://facebookresearch.github.io/vizseq/docs/getting_started/fairseq_example)
-* November 2019: [CamemBERT model and code released](examples/camembert/README.md)
-* November 2019: [BART model and code released](examples/bart/README.md)
-* November 2019: [XLM-R models and code released](examples/xlmr/README.md)
-* September 2019: [Nonautoregressive translation code released](examples/nonautoregressive_translation/README.md)
-* August 2019: [WMT'19 models released](examples/wmt19/README.md)
-* July 2019: fairseq relicensed under MIT license
-* July 2019: [RoBERTa models and code released](examples/roberta/README.md)
-* June 2019: [wav2vec models and code released](examples/wav2vec/README.md)
+# Train your own model
 
-</p></details>
+### Data preparation
 
-### Features:
+1. Prepare two folders, `$SRC_AUDIO` and `$TGT_AUDIO`, with `${SPLIT}/${SAMPLE_ID}.wav` for source and target speech under each folder, separately. Note that for S2UT experiments, target audio sampling rate should be in 16,000 Hz, and for S2SPECT experiments, target audio sampling rate is recommended to be in 22,050 Hz.
+2. To prepare target discrete units for S2UT model training, see [Generative Spoken Language Modeling (speech2unit)](https://github.com/pytorch/fairseq/tree/main/examples/textless_nlp/gslm/speech2unit) for pre-trained k-means models, checkpoints, and instructions on how to decode units from speech. Set the output target unit files (`--out_quantized_file_path`) as `${TGT_AUDIO}/${SPLIT}.txt`. In [Lee et al. 2021](https://arxiv.org/abs/2107.05604), we use 100 units from the sixth layer (`--layer 6`) of the HuBERT Base model.
 
-* multi-GPU training on one machine or across multiple machines (data and model parallel)
-* fast generation on both CPU and GPU with multiple search algorithms implemented:
-  + beam search
-  + Diverse Beam Search ([Vijayakumar et al., 2016](https://arxiv.org/abs/1610.02424))
-  + sampling (unconstrained, top-k and top-p/nucleus)
-  + [lexically constrained decoding](examples/constrained_decoding/README.md) (Post & Vilar, 2018)
-* [gradient accumulation](https://fairseq.readthedocs.io/en/latest/getting_started.html#large-mini-batch-training-with-delayed-updates) enables training with large mini-batches even on a single GPU
-* [mixed precision training](https://fairseq.readthedocs.io/en/latest/getting_started.html#training-with-half-precision-floating-point-fp16) (trains faster with less GPU memory on [NVIDIA tensor cores](https://developer.nvidia.com/tensor-cores))
-* [extensible](https://fairseq.readthedocs.io/en/latest/overview.html): easily register new models, criterions, tasks, optimizers and learning rate schedulers
-* [flexible configuration](docs/hydra_integration.md) based on [Hydra](https://github.com/facebookresearch/hydra) allowing a combination of code, command-line and file based configuration
-* [full parameter and optimizer state sharding](examples/fully_sharded_data_parallel/README.md)
-* [offloading parameters to CPU](examples/fully_sharded_data_parallel/README.md)
+## Hubert CTC Finetuning 
 
-We also provide [pre-trained models for translation and language modeling](#pre-trained-models-and-examples)
-with a convenient `torch.hub` interface:
+### 1. Prepare a pretrained Hubert and HifiGAN.
 
-``` python
-en2de = torch.hub.load('pytorch/fairseq', 'transformer.wmt19.en-de.single_model')
-en2de.translate('Hello world', beam=5)
-# 'Hallo Welt'
+Model | Pretraining Data | Model | Quantizer
+|---|---|---|---
+mHuBERT Base | [VoxPopuli](https://github.com/facebookresearch/voxpopuli) En, Es, Fr speech from the 100k subset | [download](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3.pt) | [L11 km1000](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin)
+HIFIGAN | Universal | [download](https://github.com/jik876/hifi-gan)
+
+
+### 2. Bilateral Perturbation.
+Suppose we have original dataset at ```/path/to/TGT_AUDIO```
+
+- style normalization: refer to ```./hubertCTC/gen_SN.py``` and generate Dataset S1:
+```
+python research/TranSpeech/hubertCTC/gen_SN.py --ckpt /path/to/ckpt --wav /path/to/TGT_AUDIO --out /path/to/S1/dataset
+```
+- information enhancement: refer to ```./hubertCTC/gen_IE.py``` and generate Dataset S2
+```
+python research/TranSpeech/hubertCTC/gen_IE.py --wav /path/to/TGT_AUDIO --out /path/to/S2/dataset
 ```
 
-See the PyTorch Hub tutorials for [translation](https://pytorch.org/hub/pytorch_fairseq_translation/)
-and [RoBERTa](https://pytorch.org/hub/pytorch_fairseq_roberta/) for more examples.
+### 3. Prepare Pseudo Text.
 
-# Requirements and Installation
+- Get Manifest
+```
+python examples/wav2vec/wav2vec_manifest.py /path/to/S2/dataset --dest /manifest/to/S2/dataset --ext $ext --valid-percent $valid
+```
+$ext should be set to flac, wav, or whatever format your dataset happens to use that soundfile can read.
+$valid should be set to some reasonable percentage (like 0.01) of training data to use for validation.
 
-* [PyTorch](http://pytorch.org/) version >= 1.5.0
-* Python version >= 3.6
-* For training new models, you'll also need an NVIDIA GPU and [NCCL](https://github.com/NVIDIA/nccl)
-* **To install fairseq** and develop locally:
+- Quantize using the learned clusters
+```
+MANIFEST=/manifest/to/S2/dataset
+OUT_QUANTIZED_FILE=/quantized/to/S2/dataset
+For CKPT_PATH & KM_MODEL_PATH, refer to Section 1.
 
-``` bash
-git clone https://github.com/pytorch/fairseq
-cd fairseq
-pip install --editable ./
-
-# on MacOS:
-# CFLAGS="-stdlib=libc++" pip install --editable ./
-
-# to install the latest stable release (0.10.x)
-# pip install fairseq
+python examples/textless_nlp/gslm/speech2unit/clustering/quantize_with_kmeans.py \
+    --feature_type hubert \
+    --kmeans_model_path $KM_MODEL_PATH \
+    --acoustic_model_path $CKPT_PATH \
+    --layer 11 \
+    --manifest_path $MANIFEST  \
+    --out_quantized_file_path $OUT_QUANTIZED_FILE \
+    --extension ".flac"
 ```
 
-* **For faster training** install NVIDIA's [apex](https://github.com/NVIDIA/apex) library:
+### 4. Fine-tune a HuBERT model with a CTC loss.
+- Prepare {train,valid}.unit
 
-``` bash
-git clone https://github.com/NVIDIA/apex
-cd apex
-pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" \
-  --global-option="--deprecated_fused_adam" --global-option="--xentropy" \
-  --global-option="--fast_multihead_attn" ./
+- Get Manifest
+```
+python research/TranSpeech/hubertCTC/generate_tunehuberts.py --manifest /manifest/to/S2/dataset --txt /quantized/to/S2/dataset --unit /unit/to/S2/dataset
+```
+Suppose we have a mHuBERT Base ckpt at ```/path/to/checkpoint```
+Suppose {train,valid}.tsv are saved at ```/manifest/to/S2/dataset```, and their corresponding character transcripts {train,valid}.unit are saved at ```/unit/to/S2/dataset```.
+
+- To fine-tune a pre-trained HuBERT model at /path/to/checkpoint, run
+```
+$ python fairseq_cli/hydra_train.py \
+  --config-dir /path/to/fairseq-py/examples/hubert/config/finetune \
+  --config-name base_10h_change \
+  task.data=/manifest/to/S2/dataset task.label_dir=/unit/to/S2/dataset \
+  model.w2v_path=/path/to/checkpoint optimization.max_update=70000
 ```
 
-* **For large datasets** install [PyArrow](https://arrow.apache.org/docs/python/install.html#using-pip): `pip install pyarrow`
-* If you use Docker make sure to increase the shared memory size either with `--ipc=host` or `--shm-size`
- as command line options to `nvidia-docker run` .
+### 5. Inference with Tuned Huberts
 
-# Getting Started
+- Format the audio data.
 
-The [full documentation](https://fairseq.readthedocs.io/) contains instructions
-for getting started, training new models and extending fairseq with new model
-types and tasks.
+```
+AUDIO_EXT: audio extension, e.g. wav, flac, etc.
+Assume all audio files are at ${AUDIO_DIR}/*.${AUDIO_EXT}
+${GEN_SUBSET} should be train, test, or dev
 
-# Pre-trained models and examples
+python examples/speech_to_speech/preprocessing/prep_sn_data.py \
+  --audio-dir /path/to/TGT_AUDIO --ext ${AUIDO_EXT} \
+  --data-name ${GEN_SUBSET} --output-dir ${DATA_DIR} \
+  --for-inference
+ ```
 
-We provide pre-trained models and pre-processed, binarized test sets for several tasks listed below,
-as well as example training and evaluation commands.
+- Run the Tuned Huberts.
+ ```
+ mkdir -p ${RESULTS_PATH}
+ 
+python examples/speech_recognition/new/infer.py \
+    --config-dir examples/hubert/config/decode/ \
+    --config-name infer_viterbi \
+    task.data=${DATA_DIR} \
+    task.normalize=false \
+    common_eval.results_path=${RESULTS_PATH}/log \
+    common_eval.path=${DATA_DIR}/checkpoint_best.pt \
+    dataset.gen_subset=${GEN_SUBSET} \
+    '+task.labels=["unit"]' \
+    +decoding.results_path=${RESULTS_PATH} \
+    common_eval.post_process=none \
+    +dataset.batch_size=1 \
+    common_eval.quiet=True
+ ```
 
-* [Translation](examples/translation/README.md): convolutional and transformer models are available
-* [Language Modeling](examples/language_model/README.md): convolutional and transformer models are available
+- Post-process and generate output at ${RESULTS_PATH}/${GEN_SUBSET}.txt
+ ```
+python examples/speech_to_speech/preprocessing/prep_sn_output_data.py \
+  --in-unit ${RESULTS_PATH}/hypo.units \
+  --in-audio ${DATA_DIR}/${GEN_SUBSET}.tsv \
+  --output-root ${RESULTS_PATH}
+ ```
 
-We also have more detailed READMEs to reproduce results from specific papers:
 
-* [XLS-R: Self-supervised Cross-lingual Speech Representation Learning at Scale (Babu et al., 2021)](examples/wav2vec/xlsr/README.md)
-* [Cross-lingual Retrieval for Iterative Self-Supervised Training (Tran et al., 2020)](examples/criss/README.md)
-* [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations (Baevski et al., 2020)](examples/wav2vec/README.md)
-* [Unsupervised Quality Estimation for Neural Machine Translation (Fomicheva et al., 2020)](examples/unsupervised_quality_estimation/README.md)
-* [Training with Quantization Noise for Extreme Model Compression ({Fan*, Stock*} et al., 2020)](examples/quant_noise/README.md)
-* [Neural Machine Translation with Byte-Level Subwords (Wang et al., 2020)](examples/byte_level_bpe/README.md)
-* [Multilingual Denoising Pre-training for Neural Machine Translation (Liu et at., 2020)](examples/mbart/README.md)
-* [Reducing Transformer Depth on Demand with Structured Dropout (Fan et al., 2019)](examples/layerdrop/README.md)
-* [Jointly Learning to Align and Translate with Transformer Models (Garg et al., 2019)](examples/joint_alignment_translation/README.md)
-* [Levenshtein Transformer (Gu et al., 2019)](examples/nonautoregressive_translation/README.md)
-* [Facebook FAIR's WMT19 News Translation Task Submission (Ng et al., 2019)](examples/wmt19/README.md)
-* [RoBERTa: A Robustly Optimized BERT Pretraining Approach (Liu et al., 2019)](examples/roberta/README.md)
-* [wav2vec: Unsupervised Pre-training for Speech Recognition (Schneider et al., 2019)](examples/wav2vec/README.md)
-* [Mixture Models for Diverse Machine Translation: Tricks of the Trade (Shen et al., 2019)](examples/translation_moe/README.md)
-* [Pay Less Attention with Lightweight and Dynamic Convolutions (Wu et al., 2019)](examples/pay_less_attention_paper/README.md)
-* [Understanding Back-Translation at Scale (Edunov et al., 2018)](examples/backtranslation/README.md)
-* [Classical Structured Prediction Losses for Sequence to Sequence Learning (Edunov et al., 2018)](https://github.com/pytorch/fairseq/tree/classic_seqlevel)
-* [Hierarchical Neural Story Generation (Fan et al., 2018)](examples/stories/README.md)
-* [Scaling Neural Machine Translation (Ott et al., 2018)](examples/scaling_nmt/README.md)
-* [Convolutional Sequence to Sequence Learning (Gehring et al., 2017)](examples/conv_seq2seq/README.md)
-* [Language Modeling with Gated Convolutional Networks (Dauphin et al., 2017)](examples/language_model/README.conv.md)
+## Formatting S2ST data
 
-# Join the fairseq community
+```
+# $SPLIT1, $SPLIT2, etc. are split names such as train, dev, test, etc.
 
-* Twitter: https://twitter.com/fairseq
-* Facebook page: https://www.facebook.com/groups/fairseq.users
-* Google group: https://groups.google.com/forum/#!forum/fairseq-users
+python examples/speech_to_speech/preprocessing/prep_s2ut_data.py \
+  --source-dir $SRC_AUDIO --target-dir $TGT_AUDIO --data-split $SPLIT1 $SPLIT2 \
+  --output-root $DATA_ROOT --reduce-unit \
+  --vocoder-checkpoint $VOCODER_CKPT --vocoder-cfg $VOCODER_CFG
+```
 
-# License
+For knowledge distillation, we need another step to format the data from teacher.
 
-fairseq(-py) is MIT-licensed.
-The license applies to the pre-trained models as well.
 
-# Citation
+## Training S2UT model
 
-Please cite as:
+Here's an example for training nar_s2ut_conformer S2UT models with 1000 discrete units as target:
+```
+fairseq-train $DATA_ROOT \
+  --config-yaml config.yaml \
+  --task speech_to_speech_fasttranslate --target-is-code --target-code-size 1000 --vocoder code_hifigan  \
+  --criterion nar_speech_to_unit --label-smoothing 0.2 \
+  --arch nar_s2ut_conformer --share-decoder-input-output-embed \
+  --dropout 0.1 --attention-dropout 0.1 --relu-dropout 0.1 \
+  --train-subset train --valid-subset dev \
+  --save-dir ${MODEL_DIR}  --tensorboard-logdir ${MODEL_DIR} \
+  --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-init-lr 1e-7 --warmup-updates 10000 \
+  --optimizer adam --adam-betas "(0.9,0.98)" --clip-norm 10.0 \
+  --max-update 400000 --max-tokens 20000 --max-target-positions 3000 --update-freq 4 \
+  --seed 1 --fp16 --num-workers 8
+   --user-dir research/  --attn-type espnet --pos-enc-type rel_pos 
+```
+* Adjust `--update-freq` accordingly for different #GPUs. In the above we set `--update-freq 4` to simulate training with 4 GPUs.
 
-``` bibtex
-@inproceedings{ott2019fairseq,
-  title = {fairseq: A Fast, Extensible Toolkit for Sequence Modeling},
-  author = {Myle Ott and Sergey Edunov and Alexei Baevski and Angela Fan and Sam Gross and Nathan Ng and David Grangier and Michael Auli},
-  booktitle = {Proceedings of NAACL-HLT 2019: Demonstrations},
-  year = {2019},
+## Inference with NAR S2UT model
+
+1. Follow the same inference process as in fairseq-S2T to generate unit sequences (${RESULTS_PATH}/generate-${GEN_SUBSET}.txt).
+```
+fairseq-generate $DATA_ROOT \
+--gen-subset test --task speech_to_speech_fasttranslate  --path ${MODEL_DIR}
+ --target-is-code --target-code-size 100 --vocoder code_hifigan   --results-path ${OUTPUT_DIR}
+ --iter-decode-max-iter $N  --iter-decode-eos-penalty 0 --beam 1   --iter-decode-with-beam 15 
+```
+
+2. Convert unit sequences to waveform.
+```
+grep "^D\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt | \
+  sed 's/^D-//ig' | sort -nk1 | cut -f3 \
+  > ${RESULTS_PATH}/generate-${GEN_SUBSET}.unit
+
+grep "^T\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt  | \
+sed 's/^T-//ig' | sort -nk1 | cut -f2 
+ > ${RESULTS_PATH}/ref-${GEN_SUBSET}.unit
+```
+ * Set `--dur-prediction` for generating audio for S2UT _reduced_ models.
+ 
+
+
+* Noisy decoding: inference with `--external-reranker  --path ${checkpoint_path} = a:b `, where `a, b` denote the student and AR tracher.
+
+## Unit-to-Speech HiFi-GAN vocoder
+
+Unit config | Unit size | Vocoder language | Dataset | Model
+|---|---|---|---|---
+mHuBERT, layer 11 | 1000 | En | [LJSpeech](https://keithito.com/LJ-Speech-Dataset/) | [ckpt](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_lj/g_00500000), [config](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_lj/config.json)
+mHuBERT, layer 11 | 1000 | Es | [CSS10](https://github.com/Kyubyong/css10) | [ckpt](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_es_css10/g_00500000), [config](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_es_css10/config.json)
+mHuBERT, layer 11 | 1000 | Fr | [CSS10](https://github.com/Kyubyong/css10) | [ckpt](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_fr_css10/g_00500000), [config](https://dl.fbaipublicfiles.com/fairseq/speech_to_speech/vocoder/code_hifigan/mhubert_vp_en_es_fr_it3_400k_layer11_km1000_fr_css10/config.json)
+
+```
+python examples/speech_to_speech/generate_waveform_from_code.py \
+  --in-code-file ${RESULTS_PATH}/generate-${GEN_SUBSET}.unit \
+  --vocoder $VOCODER_CKPT --vocoder-cfg $VOCODER_CFG \
+  --results-path ${RESULTS_PATH} --dur-prediction
+```
+
+## Evaluation
+Refer to [research/TranSpeech/asr_bleu/README.md](research/TranSpeech/asr_bleu/README.md)
+
+
+## Acknowledgements
+This implementation uses parts of the code from the following Github repos:
+[Fairseq](https://github.com/facebookresearch/fairseq),
+as described in our code.
+
+## Citations ##
+If you find this code useful in your research, please cite our work:
+```bib
+@article{huang2022transpeech,
+  title={TranSpeech: Speech-to-Speech Translation With Bilateral Perturbation},
+  author={Huang, Rongjie and Zhao, Zhou and Liu, Jinglin and Liu, Huadai and Ren, Yi and Zhang, Lichao and He, Jinzheng},
+  journal={arXiv preprint arXiv:2205.12523},
+  year={2022}
 }
 ```
+
+## Disclaimer ##
+Any organization or individual is prohibited from using any technology mentioned in this paper to generate someone's speech without his/her consent, including but not limited to government leaders, political figures, and celebrities. If you do not comply with this item, you could be in violation of copyright laws.
+
