@@ -1,0 +1,7 @@
+audio_root: /large_experiments/ust/spopuri/datasets/s2u/es_en/it3_layer11.km1000
+standardize_audio: true
+use_audio_input: true
+vocab_filename: dict_1003_unitmbart.txt
+prepend_bos_and_append_tgt_lang_tag: true
+tgt_lang: <lang:en>
+eos_token: <lang:en>
