@@ -24,34 +24,34 @@ Visit our [demo page](https://transpeech.github.io/) for audio samples.
 
 # Train your own model
 
-### Data preparation
+## Data preparation
 
 1. Prepare two folders, `$SRC_AUDIO` and `$TGT_AUDIO`, with `${SPLIT}/${SAMPLE_ID}.wav` for source and target speech under each folder, separately. Note that for S2UT experiments, target audio sampling rate should be in 16,000 Hz, and for S2SPECT experiments, target audio sampling rate is recommended to be in 22,050 Hz.
 2. To prepare target discrete units for S2UT model training, see [Generative Spoken Language Modeling (speech2unit)](https://github.com/pytorch/fairseq/tree/main/examples/textless_nlp/gslm/speech2unit) for pre-trained k-means models, checkpoints, and instructions on how to decode units from speech. Set the output target unit files (`--out_quantized_file_path`) as `${TGT_AUDIO}/${SPLIT}.txt`. In [Lee et al. 2021](https://arxiv.org/abs/2107.05604), we use 100 units from the sixth layer (`--layer 6`) of the HuBERT Base model.
 
 ## Hubert CTC Finetuning 
 
-### 1. Prepare a pretrained Hubert and HifiGAN.
+### 1. Prepare a pretrained Hubert and HifiGAN
 
-Model | Pretraining Data | Model | Quantizer
-|---|---|---|---
+Model | Pretraining Data                                                                                  | Model | Quantizer
+|---|---------------------------------------------------------------------------------------------------|---|---
 mHuBERT Base | [VoxPopuli](https://github.com/facebookresearch/voxpopuli) En, Es, Fr speech from the 100k subset | [download](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3.pt) | [L11 km1000](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin)
-HIFIGAN | Universal | [download](https://github.com/jik876/hifi-gan)
+HIFIGAN | 16k Universal                                                                                     | [download](https://zjueducn-my.sharepoint.com/:f:/g/personal/rongjiehuang_zju_edu_cn/EvMZ_WMcSoVDtUvE-C3wGhoBz4yI_N1Hcfk-LhzVnYMsvg?e=z59ntY)
 
 
-### 2. Bilateral Perturbation.
+### 2. Bilateral Perturbation
 Suppose we have original dataset at ```/path/to/TGT_AUDIO```
 
 - style normalization: refer to ```./hubertCTC/gen_SN.py``` and generate Dataset S1:
 ```
-python research/TranSpeech/hubertCTC/gen_SN.py --ckpt /path/to/ckpt --wav /path/to/TGT_AUDIO --out /path/to/S1/dataset
+python research/TranSpeech/hubertCTC/gen_SN.py  --wav /path/to/TGT_AUDIO --out /path/to/S1/dataset
 ```
 - information enhancement: refer to ```./hubertCTC/gen_IE.py``` and generate Dataset S2
 ```
-python research/TranSpeech/hubertCTC/gen_IE.py --wav /path/to/TGT_AUDIO --out /path/to/S2/dataset
+python research/TranSpeech/hubertCTC/gen_IE.py --ckpt /path/to/ckpt --wav /path/to/TGT_AUDIO --out /path/to/S2/dataset
 ```
 
-### 3. Prepare Pseudo Text.
+### 3. Prepare Pseudo Text
 
 - Get Manifest
 ```
@@ -76,12 +76,12 @@ python examples/textless_nlp/gslm/speech2unit/clustering/quantize_with_kmeans.py
     --extension ".flac"
 ```
 
-### 4. Fine-tune a HuBERT model with a CTC loss.
+### 4. Fine-tune a HuBERT model with a CTC loss
 - Prepare {train,valid}.unit
 
 - Get Manifest
 ```
-python research/TranSpeech/hubertCTC/generate_tunehuberts.py --manifest /manifest/to/S2/dataset --txt /quantized/to/S2/dataset --unit /unit/to/S2/dataset
+python data/huberts/generate_tunehuberts.py --manifest /manifest/to/S2/dataset --txt /quantized/to/S2/dataset --unit /unit/to/S2/dataset
 ```
 Suppose we have a mHuBERT Base ckpt at ```/path/to/checkpoint```
 Suppose {train,valid}.tsv are saved at ```/manifest/to/S2/dataset```, and their corresponding character transcripts {train,valid}.unit are saved at ```/unit/to/S2/dataset```.
@@ -138,7 +138,7 @@ python examples/speech_to_speech/preprocessing/prep_sn_output_data.py \
  ```
 
 
-## Formatting S2ST data
+### 6. Formatting Speech-to-Speech Translation data
 
 ```
 # $SPLIT1, $SPLIT2, etc. are split names such as train, dev, test, etc.
