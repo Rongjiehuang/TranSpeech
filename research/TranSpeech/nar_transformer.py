@@ -676,6 +676,7 @@ def base_s2st_transformer_encoder_architecture(args):
     # Convolutional subsampler
     args.conv_kernel_sizes = getattr(args, "conv_kernel_sizes", "5,5")
     args.conv_channels = getattr(args, "conv_channels", 1024)
+    args.conv_version = getattr(args, "conv_version", "s2t_transformer")
     # Transformer
     args.encoder_embed_dim = getattr(args, "encoder_embed_dim", 512)
     args.encoder_ffn_embed_dim = getattr(args, "encoder_ffn_embed_dim", 2048)

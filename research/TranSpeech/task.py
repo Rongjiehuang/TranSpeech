@@ -25,7 +25,7 @@ class SpeechToSpeechFastTranslateTask(SpeechToSpeechTask):
             epoch=epoch,
             seed=self.args.seed,
             target_is_code=self.args.target_is_code,
-            target_dictionary=self.target_dictionary,
+            tgt_dict=self.target_dictionary,
             n_frames_per_step=self.args.n_frames_per_step,
             multitask=self.multitask_tasks,
         )
