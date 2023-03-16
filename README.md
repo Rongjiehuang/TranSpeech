@@ -20,7 +20,32 @@ Visit our [demo page](https://transpeech.github.io/) for audio samples.
 
 ### Dependencies
 
-- [Fairseq](https://github.com/facebookresearch/fairseq)
+* [PyTorch](http://pytorch.org/) version >= 1.5.0
+* Python version >= 3.6
+* For training new models, you'll also need an NVIDIA GPU and [NCCL](https://github.com/NVIDIA/nccl)
+* **To install fairseq** and develop locally:
+
+``` bash
+git clone https://github.com/pytorch/fairseq
+cd fairseq
+pip install --editable ./
+
+# on MacOS:
+# CFLAGS="-stdlib=libc++" pip install --editable ./
+
+# to install the latest stable release (0.10.x)
+# pip install fairseq
+```
+
+* **For faster training** install NVIDIA's [apex](https://github.com/NVIDIA/apex) library:
+
+``` bash
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" \
+  --global-option="--deprecated_fused_adam" --global-option="--xentropy" \
+  --global-option="--fast_multihead_attn" ./
+```
 
 # Train your own model
 
