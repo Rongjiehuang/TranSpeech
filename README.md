@@ -49,11 +49,11 @@ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cud
 
 ### 1. Prepare a pretrained Hubert and HifiGAN
 
-Model | Pretraining Data                                                                                  | Model | Quantizer
-|---|---------------------------------------------------------------------------------------------------|---|---
+Model | Pretraining Data                                                                                 | Model | Quantizer
+|---|--------------------------------------------------------------------------------------------------|---|---
 mHuBERT Base | [VoxPopuli](https://github.com/facebookresearch/voxpopuli) En, Es, Fr speech from the 100k subset | [download](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3.pt) | [L11 km1000](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin)
-HIFIGAN | 16k Universal                                                                                     | [download](https://zjueducn-my.sharepoint.com/:f:/g/personal/rongjiehuang_zju_edu_cn/EvMZ_WMcSoVDtUvE-C3wGhoBz4yI_N1Hcfk-LhzVnYMsvg?e=z59ntY)
-
+HIFIGAN | 16k Universal                                                                                    | [download](https://zjueducn-my.sharepoint.com/:f:/g/personal/rongjiehuang_zju_edu_cn/EvMZ_WMcSoVDtUvE-C3wGhoBz4yI_N1Hcfk-LhzVnYMsvg?e=z59ntY)
+dict.unit.txt (mHuBERT Fine-tuning)|                                                                                                  | [download](https://zjueducn-my.sharepoint.com/:t:/g/personal/rongjiehuang_zju_edu_cn/Ea5b_NwrBdNGlmNOun6V84sBGdAvFrl1ob2QrBwTYSDSYw?e=Rua4mN)
 
 ### 2. Bilateral Perturbation
 Suppose we have original dataset at ```/path/to/TGT_AUDIO```
@@ -100,7 +100,7 @@ python examples/textless_nlp/gslm/speech2unit/clustering/quantize_with_kmeans.py
 python data/huberts/generate_tunehuberts.py --manifest /manifest/to/S2/dataset --txt /quantized/to/S2/dataset --unit /unit/to/S2/dataset
 ```
 Suppose we have a mHuBERT Base ckpt at ```/path/to/checkpoint```
-Suppose {train,valid}.tsv are saved at ```/manifest/to/S2/dataset```, and their corresponding character transcripts {train,valid}.unit are saved at ```/unit/to/S2/dataset```.
+Suppose {train,valid}.tsv are saved at ```/manifest/to/S2/dataset```, and their corresponding character transcripts {train,valid}.unit and [dict.unit.txt](https://zjueducn-my.sharepoint.com/:t:/g/personal/rongjiehuang_zju_edu_cn/Ea5b_NwrBdNGlmNOun6V84sBGdAvFrl1ob2QrBwTYSDSYw?e=Rua4mN) are saved at ```/unit/to/S2/dataset```.
 
 - To fine-tune a pre-trained HuBERT model at /path/to/checkpoint, run
 ```
