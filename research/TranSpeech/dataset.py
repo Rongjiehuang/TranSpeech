@@ -16,7 +16,7 @@ class SpeechToSpeechFastTranslateDatasetCreator(SpeechToSpeechDatasetCreator):
         samples: List[Dict],
         data_cfg: S2SDataConfig,
         target_is_code: bool = False,
-        target_dictionary: Dictionary = None,
+        tgt_dict: Dictionary = None,
         n_frames_per_step: int = 1,
         multitask: Optional[Dict] = None,
     ) -> SpeechToSpeechDataset:
@@ -33,6 +33,8 @@ class SpeechToSpeechFastTranslateDatasetCreator(SpeechToSpeechDatasetCreator):
         ]
         src_n_frames = [int(s[cls.KEY_SRC_N_FRAMES]) for s in samples]
         tgt_n_frames = [int(s[cls.KEY_TGT_N_FRAMES]) for s in samples]
+        src_langs = [s.get(cls.KEY_SRC_LANG, cls.DEFAULT_LANG) for s in samples]
+        tgt_langs = [s.get(cls.KEY_TGT_LANG, cls.DEFAULT_LANG) for s in samples]
 
         has_multitask = len(multitask) > 0
         dataset_cls = (
@@ -47,9 +49,11 @@ class SpeechToSpeechFastTranslateDatasetCreator(SpeechToSpeechDatasetCreator):
             src_n_frames,
             tgt_audio_paths,
             tgt_n_frames,
+            src_langs,
+            tgt_langs,
             ids,
             target_is_code,
-            target_dictionary,
+            tgt_dict,
             n_frames_per_step,
         )
 
