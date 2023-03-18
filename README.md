@@ -183,8 +183,8 @@ fairseq-train $DATA_ROOT \
   --lr 0.0005 --lr-scheduler inverse_sqrt --warmup-init-lr 1e-7 --warmup-updates 10000 \
   --optimizer adam --adam-betas "(0.9,0.98)" --clip-norm 10.0 \
   --max-update 400000 --max-tokens 20000 --max-target-positions 3000 --update-freq 4 \
-  --seed 1 --fp16 --num-workers 8
-   --user-dir research/  --attn-type espnet --pos-enc-type rel_pos 
+  --seed 1 --fp16 --num-workers 8 \
+  --user-dir research/  --attn-type espnet --pos-enc-type rel_pos 
 ```
 * Adjust `--update-freq` accordingly for different #GPUs. In the above we set `--update-freq 4` to simulate training with 4 GPUs.
 
@@ -193,8 +193,8 @@ fairseq-train $DATA_ROOT \
 1. Follow the same inference process as in fairseq-S2T to generate unit sequences (${RESULTS_PATH}/generate-${GEN_SUBSET}.txt).
 ```
 fairseq-generate $DATA_ROOT \
---gen-subset test --task speech_to_speech_fasttranslate  --path ${MODEL_DIR}
- --target-is-code --target-code-size 100 --vocoder code_hifigan   --results-path ${OUTPUT_DIR}
+ --gen-subset test --task speech_to_speech_fasttranslate  --path ${MODEL_DIR} \
+ --target-is-code --target-code-size 1000 --vocoder code_hifigan   --results-path ${OUTPUT_DIR} \
  --iter-decode-max-iter $N  --iter-decode-eos-penalty 0 --beam 1   --iter-decode-with-beam 15 
 ```
 
@@ -205,8 +205,8 @@ grep "^D\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt | \
   > ${RESULTS_PATH}/generate-${GEN_SUBSET}.unit
 
 grep "^T\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt  | \
-sed 's/^T-//ig' | sort -nk1 | cut -f2 
- > ${RESULTS_PATH}/ref-${GEN_SUBSET}.unit
+  sed 's/^T-//ig' | sort -nk1 | cut -f2 
+  > ${RESULTS_PATH}/ref-${GEN_SUBSET}.unit
 ```
  * Set `--dur-prediction` for generating audio for S2UT _reduced_ models.
  

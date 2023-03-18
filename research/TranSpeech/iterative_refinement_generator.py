@@ -158,7 +158,7 @@ class IterativeRefinementGenerator(object):
 
             bsz = bsz * self.beam_size
 
-        sent_idxs = torch.arange(bsz)
+        sent_idxs = torch.arange(bsz).to(device="cuda")
         prev_output_tokens = prev_decoder_out.output_tokens.clone()
 
         if self.retain_history:
@@ -304,7 +304,7 @@ class IterativeRefinementGenerator(object):
                 finalized[
                     np.argmax(
                         [
-                            finalized[self.beam_size * i + j][0]["score"]
+                            finalized[self.beam_size * i + j][0]["score"].cpu()
                             for j in range(self.beam_size)
                         ]
                     )
