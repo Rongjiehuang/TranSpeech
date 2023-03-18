@@ -205,7 +205,7 @@ grep "^D\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt | \
   > ${RESULTS_PATH}/generate-${GEN_SUBSET}.unit
 
 grep "^T\-" ${RESULTS_PATH}/generate-${GEN_SUBSET}.txt  | \
-  sed 's/^T-//ig' | sort -nk1 | cut -f2 
+  sed 's/^T-//ig' | sort -nk1 | cut -f2 \
   > ${RESULTS_PATH}/ref-${GEN_SUBSET}.unit
 ```
  * Set `--dur-prediction` for generating audio for S2UT _reduced_ models.
