@@ -52,8 +52,8 @@ pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cud
 Model | Pretraining Data                                                                               | Model | Quantizer
 |---|------------------------------------------------------------------------------------------------|---|---
 mHuBERT Base | En, Es, Fr speech | [download](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3.pt) | [L11 km1000](https://dl.fbaipublicfiles.com/hubert/mhubert_base_vp_en_es_fr_it3_L11_km1000.bin)
-HIFIGAN | 16k Universal                                                                                  | [download](https://zjueducn-my.sharepoint.com/:f:/g/personal/rongjiehuang_zju_edu_cn/EvMZ_WMcSoVDtUvE-C3wGhoBz4yI_N1Hcfk-LhzVnYMsvg?e=z59ntY)
-dict.unit.txt|                                                   | [download](https://zjueducn-my.sharepoint.com/:t:/g/personal/rongjiehuang_zju_edu_cn/Ea5b_NwrBdNGlmNOun6V84sBGdAvFrl1ob2QrBwTYSDSYw?e=Rua4mN)
+HIFIGAN | 16k Universal                                                                                  | [download](https://huggingface.co/Rongjiehuang/TranSpeech/)
+dict.unit.txt|                                                   | [download](https://huggingface.co/Rongjiehuang/TranSpeech)
 
 ### 2. Prepare Perturbated Dataset
 Suppose we have original dataset at ```/path/to/TGT_AUDIO```
